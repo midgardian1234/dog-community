@@ -293,3 +293,25 @@ function leave(reason) {
   joinBox.style.display = '';
   $('msg').textContent = reason;
 }
+
+// ---------- corner buttons: X link + meme gallery ----------
+if (cfg.xUrl) $('xLink').href = cfg.xUrl;
+const gallery = $('gallery');
+$('hookBtn').onclick = (e) => {
+  e.stopPropagation();
+  const memes = cfg.memes || [];
+  $('memeCount').textContent = memes.length + (memes.length === 1 ? ' meme' : ' memes');
+  $('memeGrid').innerHTML = '';
+  for (const src of memes) {
+    const a = document.createElement('a');
+    a.href = src; a.target = '_blank'; a.rel = 'noopener';
+    const img = document.createElement('img');
+    img.src = src; img.alt = 'meme'; img.loading = 'lazy';
+    a.appendChild(img);
+    $('memeGrid').appendChild(a);
+  }
+  gallery.classList.add('on');
+};
+$('galleryClose').onclick = () => gallery.classList.remove('on');
+gallery.addEventListener('click', (e) => e.target === gallery && gallery.classList.remove('on'));
+document.addEventListener('keydown', (e) => e.key === 'Escape' && gallery.classList.remove('on'));
