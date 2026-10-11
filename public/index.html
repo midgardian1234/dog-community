@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>dog community</title>
+<link rel="icon" href="dog.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#f3f4f7; --card:#fff; --panel:#c6d1dc; --ink:#000; --muted:#e5484d; --talk:#3ecf6e; }
+  * { box-sizing: border-box; }
+  body { margin:0; min-height:100vh; background:var(--bg); font-family:'Open Sans',system-ui,sans-serif; color:var(--ink);
+         display:flex; align-items:center; justify-content:center; padding:24px 16px; }
+  .card { background:var(--card); width:min(1110px,100%); padding:36px clamp(16px,5.5vw,62px) 58px;
+          box-shadow:0 10px 40px rgba(20,30,50,.06); }
+  h1 { margin:0 0 30px; text-align:center; font-weight:700; font-size:clamp(32px,4.4vw,52px); letter-spacing:-.5px; }
+  .panel { background:var(--panel); min-height:436px; padding:10px clamp(10px,3vw,32px); position:relative;
+           display:grid; grid-template-columns:repeat(auto-fill,90px); gap:14px; justify-content:space-between; align-content:start; }
+  .tile { width:90px; height:90px; border-radius:50%; position:relative; cursor:pointer; transition:box-shadow .12s; }
+  .tile img { width:100%; height:100%; border-radius:50%; object-fit:cover; transform:scale(1.04); display:block; user-select:none; -webkit-user-drag:none; }
+  .tile.speaking { box-shadow:0 0 0 3px var(--talk); }
+  .tile .badge { position:absolute; right:-2px; bottom:-2px; width:24px; height:24px; border-radius:50%; background:var(--muted);
+                 display:none; align-items:center; justify-content:center; border:2px solid var(--panel); }
+  .tile.muted .badge { display:flex; }
+  .tile .crown { position:absolute; top:-10px; left:50%; transform:translateX(-50%); font-size:16px; display:none; z-index:1; }
+  .tile.host .crown { display:block; }
+  .tile.me img { outline:2px solid #fff; outline-offset:-2px; }
+
+  .join { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px; }
+  .join input, .join button, .bar button { font:inherit; font-size:16px; border:0; border-radius:999px; padding:12px 22px; }
+  .join input { width:min(260px,80vw); text-align:center; background:#fff; outline:none; }
+  .join button, .bar button { background:#000; color:#fff; font-weight:600; cursor:pointer; }
+  .join .msg { min-height:20px; font-size:14px; color:#333; text-align:center; padding:0 16px; }
+
+  .bar { display:none; justify-content:center; gap:10px; margin-top:22px; }
+  .bar.on { display:flex; }
+  .bar button.secondary { background:#eef1f4; color:#000; }
+  .bar button.is-muted { background:var(--muted); }
+
+  .menu { position:fixed; z-index:10; background:#fff; border-radius:12px; box-shadow:0 8px 30px rgba(0,0,0,.18); padding:6px; min-width:160px; display:none; }
+  .menu.on { display:block; }
+  .menu .who { font-weight:700; padding:8px 12px 6px; font-size:14px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:220px; }
+  .menu button { display:block; width:100%; text-align:left; font:inherit; font-size:14px; background:none; border:0; padding:9px 12px; border-radius:8px; cursor:pointer; }
+  .menu button:hover { background:#f1f3f6; }
+  .menu button.danger { color:var(--muted); }
+  .menu input[type=range] { width:calc(100% - 24px); margin:6px 12px 8px; }
+  .menu .label { font-size:12px; color:#666; padding:4px 12px 0; }
+
+  @media (max-width:560px) {
+    .panel { grid-template-columns:repeat(auto-fill,64px); gap:10px; min-height:320px; }
+    .tile { width:64px; height:64px; }
+  }
+</style>
+</head>
+<body>
+<main class="card">
+  <h1>dog community</h1>
+  <section class="panel" id="panel">
+    <div class="join" id="join">
+      <input id="name" placeholder="your name" maxlength="24" autocomplete="off">
+      <button id="joinBtn">join voice</button>
+      <div class="msg" id="msg"></div>
+    </div>
+  </section>
+  <div class="bar" id="bar">
+    <button id="muteBtn">mute</button>
+    <button id="leaveBtn" class="secondary">leave</button>
+  </div>
+</main>
+<div class="menu" id="menu"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
