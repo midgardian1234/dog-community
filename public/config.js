@@ -9,7 +9,15 @@ window.DOG_CONFIG = {
 
   // memes shown when clicking the hook (top-right). Drop images in public/memes/ and list them here.
   memes: [
-    'memes/egg.jpg',
+    'memes/laser.jpg',
+    'memes/crown.jpg',
+    'memes/bear.jpg',
     'memes/cone.jpg',
+    'memes/egg.jpg',
+    'memes/propeller.jpg',
+    'memes/helmet.jpg',
+    'memes/cheese.jpg',
+    'memes/solana.jpg',
+    'memes/cowboy.jpg',
   ],
 };
