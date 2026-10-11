@@ -14,11 +14,12 @@
          display:flex; align-items:center; justify-content:center; padding:24px 16px; }
   .card { background:var(--card); width:min(1110px,100%); padding:36px clamp(16px,5.5vw,62px) 58px;
           box-shadow:0 10px 40px rgba(20,30,50,.06); }
-  .top { position:relative; z-index:30; display:grid; grid-template-columns:48px 1fr 48px; align-items:center; margin:0 0 30px; }
+  .top { display:grid; grid-template-columns:48px 1fr 48px; align-items:center; margin:0 0 30px; }
   .top h1 { margin:0; }
   .icon { width:48px; height:48px; display:flex; align-items:center; justify-content:center; background:none; border:0; padding:0;
           color:#000; cursor:pointer; text-decoration:none; transition:transform .12s, opacity .12s; }
   .icon:hover { transform:scale(1.1); }
+  .icon:focus:not(:focus-visible) { outline:none; }
   h1 { margin:0 0 30px; text-align:center; font-weight:700; font-size:clamp(32px,4.4vw,52px); letter-spacing:-.5px; }
   .panel { background:var(--panel); min-height:436px; padding:10px clamp(10px,3vw,32px); position:relative;
            display:grid; grid-template-columns:repeat(auto-fill,90px); gap:14px; justify-content:space-between; align-content:start; }
@@ -54,11 +55,13 @@
 
 
   /* hook curtain: drops down from the top of the screen over the page */
-  .gallery { position:fixed; inset:0; z-index:20; background:var(--bg); overflow-y:auto;
+  .gallery { position:fixed; inset:0; z-index:20; background:var(--bg); overflow:hidden;
              transform:translateY(-100%); visibility:hidden;
              transition:transform .55s cubic-bezier(.7,0,.2,1), visibility 0s .55s;
              box-shadow:0 10px 40px rgba(20,30,50,.15); }
   .gallery.on { transform:none; visibility:visible; transition:transform .55s cubic-bezier(.7,0,.2,1); }
+  .gallery .scroll { height:100%; overflow-y:auto; }
+  .gallery .back { position:absolute; top:16px; left:16px; z-index:1; }
   .gallery .head { text-align:center; padding:30px 16px 20px; font-weight:700; font-size:clamp(28px,4vw,44px); }
   .gallery .count { display:block; font-weight:400; color:#666; font-size:14px; margin-top:4px; }
   .gallery .list { width:min(520px,100%); margin:0 auto; padding:0 16px 60px; display:flex; flex-direction:column; gap:18px; }
@@ -77,8 +80,15 @@
 </head>
 <body>
 <div class="gallery" id="gallery">
-  <div class="head">memes <span class="count" id="memeCount"></span></div>
-  <div class="list" id="memeGrid"></div>
+  <button class="icon back" id="galleryBack" aria-label="back to voice chat" title="back to voice chat">
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="15" cy="4" r="2"/><path d="M15 6v9a5 5 0 0 1-10 0v-3l3 3"/>
+    </svg>
+  </button>
+  <div class="scroll">
+    <div class="head">memes <span class="count" id="memeCount"></span></div>
+    <div class="list" id="memeGrid"></div>
+  </div>
 </div>
 <main class="card">
   <header class="top">
