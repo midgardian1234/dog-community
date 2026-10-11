@@ -311,8 +311,15 @@ $('hookBtn').onclick = (e) => {
     a.appendChild(img);
     $('memeGrid').appendChild(a);
   }
+  placeBackHook();
   gallery.classList.add('on');
 };
+// the curtain's hook sits straight above where the header hook is, just higher
+function placeBackHook() {
+  const r = $('hookBtn').getBoundingClientRect();
+  $('galleryBack').style.right = Math.max(8, window.innerWidth - r.right) + 'px';
+}
+window.addEventListener('resize', placeBackHook);
 gallery.addEventListener('click', (e) => { e.stopPropagation(); if (!e.target.closest('a')) gallery.classList.remove('on'); });
 document.addEventListener('click', () => gallery.classList.remove('on'));
 document.addEventListener('keydown', (e) => e.key === 'Escape' && gallery.classList.remove('on'));
