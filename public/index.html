@@ -14,6 +14,11 @@
          display:flex; align-items:center; justify-content:center; padding:24px 16px; }
   .card { background:var(--card); width:min(1110px,100%); padding:36px clamp(16px,5.5vw,62px) 58px;
           box-shadow:0 10px 40px rgba(20,30,50,.06); }
+  .top { position:relative; z-index:30; display:grid; grid-template-columns:48px 1fr 48px; align-items:center; margin:0 0 30px; }
+  .top h1 { margin:0; }
+  .icon { width:48px; height:48px; display:flex; align-items:center; justify-content:center; background:none; border:0; padding:0;
+          color:#000; cursor:pointer; text-decoration:none; transition:transform .12s, opacity .12s; }
+  .icon:hover { transform:scale(1.1); }
   h1 { margin:0 0 30px; text-align:center; font-weight:700; font-size:clamp(32px,4.4vw,52px); letter-spacing:-.5px; }
   .panel { background:var(--panel); min-height:436px; padding:10px clamp(10px,3vw,32px); position:relative;
            display:grid; grid-template-columns:repeat(auto-fill,90px); gap:14px; justify-content:space-between; align-content:start; }
@@ -47,12 +52,6 @@
   .menu input[type=range] { width:calc(100% - 24px); margin:6px 12px 8px; }
   .menu .label { font-size:12px; color:#666; padding:4px 12px 0; }
 
-  .corner { position:fixed; top:16px; z-index:5; width:46px; height:46px; border-radius:50%; background:#fff; color:#000;
-            display:flex; align-items:center; justify-content:center; border:0; cursor:pointer; text-decoration:none;
-            box-shadow:0 4px 18px rgba(20,30,50,.10); transition:transform .12s; }
-  .corner:hover { transform:scale(1.07); }
-  .corner.left { left:16px; }
-  .corner.right { right:16px; }
 
   /* hook curtain: drops down from the top of the screen over the page */
   .gallery { position:fixed; inset:0; z-index:20; background:var(--bg); overflow-y:auto;
@@ -66,33 +65,33 @@
   .gallery .list a { display:block; overflow:hidden; background:var(--panel); box-shadow:0 6px 24px rgba(20,30,50,.08); }
   .gallery .list img { width:100%; display:block; transition:transform .2s; }
   .gallery .list a:hover img { transform:scale(1.02); }
-  .corner { z-index:30; }
 
   @media (max-width:560px) {
     .panel { grid-template-columns:repeat(auto-fill,64px); gap:10px; min-height:320px; }
     .tile { width:64px; height:64px; }
-    .corner { width:40px; height:40px; top:10px; }
-    .corner.left { left:10px; } .corner.right { right:10px; }
     .gallery .head { padding-top:60px; }
-    .card { margin-top:44px; }
+    .top { grid-template-columns:36px 1fr 36px; }
+    .icon svg { width:22px; height:22px; }
   }
 </style>
 </head>
 <body>
-<a class="corner left" id="xLink" href="https://x.com" target="_blank" rel="noopener" aria-label="X">
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-</a>
-<button class="corner right" id="hookBtn" aria-label="memes" title="memes">
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-    <circle cx="15" cy="4" r="2"/><path d="M15 6v9a5 5 0 0 1-10 0v-3l3 3"/>
-  </svg>
-</button>
 <div class="gallery" id="gallery">
   <div class="head">memes <span class="count" id="memeCount"></span></div>
   <div class="list" id="memeGrid"></div>
 </div>
 <main class="card">
-  <h1>dog community</h1>
+  <header class="top">
+    <a class="icon" id="xLink" href="https://x.com" target="_blank" rel="noopener" aria-label="X">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+    </a>
+    <h1>dog community</h1>
+    <button class="icon" id="hookBtn" aria-label="memes" title="memes">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="15" cy="4" r="2"/><path d="M15 6v9a5 5 0 0 1-10 0v-3l3 3"/>
+      </svg>
+    </button>
+  </header>
   <section class="panel" id="panel">
     <div class="join" id="join">
       <input id="name" placeholder="your name" maxlength="24" autocomplete="off">

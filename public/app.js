@@ -313,6 +313,6 @@ $('hookBtn').onclick = (e) => {
   }
   gallery.classList.add('on');
 };
-gallery.addEventListener('click', (e) => e.stopPropagation());
+gallery.addEventListener('click', (e) => { e.stopPropagation(); if (!e.target.closest('a')) gallery.classList.remove('on'); });
 document.addEventListener('click', () => gallery.classList.remove('on'));
 document.addEventListener('keydown', (e) => e.key === 'Escape' && gallery.classList.remove('on'));
