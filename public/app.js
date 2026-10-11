@@ -299,6 +299,7 @@ if (cfg.xUrl) $('xLink').href = cfg.xUrl;
 const gallery = $('gallery');
 $('hookBtn').onclick = (e) => {
   e.stopPropagation();
+  if (gallery.classList.contains('on')) return gallery.classList.remove('on');
   const memes = cfg.memes || [];
   $('memeCount').textContent = memes.length + (memes.length === 1 ? ' meme' : ' memes');
   $('memeGrid').innerHTML = '';
@@ -312,6 +313,6 @@ $('hookBtn').onclick = (e) => {
   }
   gallery.classList.add('on');
 };
-$('galleryClose').onclick = () => gallery.classList.remove('on');
-gallery.addEventListener('click', (e) => e.target === gallery && gallery.classList.remove('on'));
+gallery.addEventListener('click', (e) => e.stopPropagation());
+document.addEventListener('click', () => gallery.classList.remove('on'));
 document.addEventListener('keydown', (e) => e.key === 'Escape' && gallery.classList.remove('on'));
